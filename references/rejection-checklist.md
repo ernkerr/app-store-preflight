@@ -99,6 +99,14 @@ Guidelines.
 - **5.1.2 tracking:** any tracking SDK needs App Tracking Transparency and the
   matching privacy answers.
 
+## Data sources and licenses
+
+- **Third-party data terms vs. a paid app.** Not an App Review rejection, but
+  a launch blocker all the same. Read the terms of every data API the app
+  calls. Many free movie/book/music APIs forbid commercial use, and a
+  subscription or paid unlock is commercial. Also check per-key request
+  quotas: a key shipped in the bundle is shared by every user.
+
 ## Content and safety
 
 - **Health/medical apps (1.4.1):** include a visible medical disclaimer, make
@@ -117,6 +125,15 @@ Guidelines.
 - OTA updates (expo-updates) are fine for JS fixes. Don't use them to change
   what the app does after review (2.5.2).
 
+- **Paywall perks must exist.** Check each perk bullet against the code. A
+  data-source switch can quietly remove a paid feature (e.g. a streaming
+  filter that needs provider data the new API doesn't have) (2.3.1, 3.1.2).
+- **In-app unlock codes.** Hardcoded promo codes that unlock paid features
+  bypass IAP (3.1.1), and anyone can read them out of the bundle. Use App
+  Store Connect offer codes.
+- **Developer hints in Release.** Strings like "API key not configured" or
+  "demo catalog" read as unfinished (2.1). Gate them behind `__DEV__`.
+
 ## Found the hard way (add to this list)
 
 - GLP-1 Anchor (Aug 2026): purchases failed because the IAP init called a
@@ -131,3 +148,8 @@ Guidelines.
 - Farkle (Sep 2026): the paywall's fallback price read the same as the real
   price, so the label proved nothing. Only the Subscribe-tap check showed
   the product loaded.
+- Movie tracker (Sep 2026): the smoke test found a modal whose Save button sat
+  under the keyboard (the tap landed on a key, so nothing saved), and a
+  cancelled Apple sign-in sheet reported as "Purchase failed". After the
+  Subscribe-tap check, tap Cancel and confirm no error alert appears. Always
+  type into every modal and tap Save with the keyboard still up.
