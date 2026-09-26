@@ -22,6 +22,9 @@ Guidelines.
 - **Dead ends:** buttons with empty `onPress`, links to `example.com` or
   empty URLs (`grep -rn 'href=""\|url: ""\|: ""' src/config`), settings rows
   that do nothing.
+- **iPad, even for iPhone-only apps:** Apple often reviews iPhone-only
+  apps on an iPad (compatibility mode). The purchase flow must work there
+  too, so run the Subscribe-tap check on an iPad simulator as well.
 - **iPad:** if `supportsTablet` is true, Apple reviews on iPad. Run the
   smoke test on an iPad simulator too. Stretched layouts, clipped sheets and
   unreachable buttons get rejected. If iPad isn't worth supporting, set
@@ -70,6 +73,14 @@ Guidelines.
 - **4.8 login services:** if it offers Google/Facebook sign-in, it must also
   offer Sign in with Apple.
 
+## Intellectual property (5.2)
+
+- **5.2.1 third-party content:** lyrics, sheet music, movie posters, logos,
+  brand names, or API data the app doesn't have documented rights to. Look for
+  bundled content files and for APIs that return copyrighted material. Either
+  attach proof of rights in App Review Information, or remove the content.
+  Apple repeats this rejection until one of those happens.
+
 ## Privacy (5.1)
 
 - **Privacy policy:** a live URL, linked in the app (paywall/settings) and in
@@ -111,6 +122,12 @@ Guidelines.
 - GLP-1 Anchor (Aug 2026): purchases failed because the IAP init called a
   method that doesn't exist in the installed plugin version, and a try/catch
   swallowed the error (2.1(a)/(b)). Placeholder icon (2.3.8).
+- A karaoke app (Feb 2026): rejected for third-party lyrics (5.2.1), and
+  for missing EULA and privacy links both in the app and in the description
+  (3.1.2).
+- GLP-1 Anchor (Aug 24, 2026): build 4 was still rejected under 2.1(b) ("we
+  got one error message" on buy), reviewed on an iPad Air running an
+  iPhone-only app.
 - Farkle (Sep 2026): the paywall's fallback price read the same as the real
   price, so the label proved nothing. Only the Subscribe-tap check showed
   the product loaded.
