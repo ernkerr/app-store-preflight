@@ -153,3 +153,17 @@ Guidelines.
   cancelled Apple sign-in sheet reported as "Purchase failed". After the
   Subscribe-tap check, tap Cancel and confirm no error alert appears. Always
   type into every modal and tap Save with the keyboard still up.
+- GLP-1 Anchor (Sep 2026, root cause of the Aug 24 rejection): with
+  cordova-plugin-purchase 13.x on Apple, `store.owned()` returns true for the
+  INITIATED placeholder transaction created when the payment sheet opens, so
+  the paywall unlocked before payment. Gate entitlement on APPROVED/FINISHED
+  transactions. In the Subscribe-tap check, confirm the paywall is still
+  behind Apple's sheet, not the unlocked app.
+- Capacitor apps (Sep 2026): without `viewport-fit=cover` in the viewport
+  meta, every `env(safe-area-inset-*)` is 0 and headers sit under the
+  Dynamic Island. Text glyphs used as icons (〜 ◎) can render as '?' boxes.
+- Maestro can't see into an iPhone-only app's compatibility window on an
+  iPadOS 26 simulator. For the iPad smoke test, build a sim-only copy with
+  `TARGETED_DEVICE_FAMILY=1,2` on the xcodebuild command line (don't commit).
+  Simulator builds have no App Store receipt, so a sign-in prompt at launch
+  is expected there.
