@@ -58,6 +58,10 @@ Guidelines.
   paywall component and check each item.
 - The price shown should come from StoreKit (`localizedPrice`), with the
   config value only as a fallback.
+- **Reviewers must be able to find the purchase.** If the paywall only
+  appears at a usage limit (e.g. the 21st saved item), add an always-visible
+  entry point (Settings → "Get Premium") and name it in the review notes;
+  otherwise the reviewer can't locate the IAP (2.1).
 
 ## Spam and minimum functionality (4.x)
 
