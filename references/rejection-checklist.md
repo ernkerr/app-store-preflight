@@ -171,3 +171,26 @@ Guidelines.
   `TARGETED_DEVICE_FAMILY=1,2` on the xcodebuild command line (don't commit).
   Simulator builds have no App Store receipt, so a sign-in prompt at launch
   is expected there.
+- GLP-1 Anchor (Oct 2026): rejected under 4.0 Design ("crowded interface")
+  on an iPad Air. An iPhone-only app runs in a 375x667 window there, and a
+  fixed-height chart plus a floating action button covered the content and
+  pushed buttons under the tab bar. Check every screen at 375x667 (an iPhone
+  SE simulator matches it, status bar included) and on the largest iPhone.
+  Give a persistent action button its own row instead of floating it over
+  content.
+- iOS `<input type="datetime-local">` (and other date inputs) ignore `w-full`
+  and overflow their container. Add `appearance-none min-w-0 block`. The
+  browser doesn't show this; only the simulator does.
+- Maestro in Capacitor apps: `tapOn` retries when it can't see the web view
+  change, so it taps twice and closes the sheet it just opened. Use
+  `retryTapIfNoChange: false` on taps inside the web view and check results
+  with screenshots, not `extendedWaitUntil` on web text.
+- Maestro needs Java on PATH. Homebrew's openjdk is keg-only, so set
+  `JAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home`.
+- Hard paywall + no App Store receipt in the simulator means the main screens
+  can't be reached there. For a layout check, build a throwaway sim copy with
+  the entitlement check forced on, revert it before the upload build, and
+  confirm the archive's web files match a clean `npm run build`.
+- Before fixing a rejection, `git fetch` and compare with origin: a cloud
+  session may already have pushed the fix, starting from an older commit
+  that's missing local-only work.
