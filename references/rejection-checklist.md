@@ -191,6 +191,20 @@ Guidelines.
   can't be reached there. For a layout check, build a throwaway sim copy with
   the entitlement check forced on, revert it before the upload build, and
   confirm the archive's web files match a clean `npm run build`.
+- Darts (Nov 2026): an installed but unused Expo module still adds its
+  permission strings (expo-image-picker put generic camera, microphone and
+  photo prompts in Info.plist), because prebuild applies the plugins of
+  installed packages. Check the built Info.plist, not just app.json, and
+  uninstall what nothing imports (5.1.1).
+- A settings field the active game never reads is a dead end (2.1): the
+  score-tracker boilerplate's "Default Target Score" did nothing in a game
+  whose target comes from a rule. Trace each settings field to a reader.
+- A paywall headed "Upgrade Required" never names the subscription. Put
+  its title in the header (3.1.2), and offer Restore there, not only in
+  Settings.
+- Test the score pad with the largest common player count, not just two:
+  with three players the darts pad opened the last player's keys below the
+  fold.
 - Before fixing a rejection, `git fetch` and compare with origin: a cloud
   session may already have pushed the fix, starting from an older commit
   that's missing local-only work.
